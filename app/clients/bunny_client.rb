@@ -19,7 +19,7 @@ class BunnyClient
   private
 
   def http_request(method, path, body: nil)
-    uri = URI("#{BASE_URI}/#{path}")
+    uri = URI.parse("#{BASE_URI}#{path}")
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.is_a?(URI::HTTPS)
