@@ -8,10 +8,12 @@ class Bunny
     @client = BunnyClient.new(library_id: library_id, access_key: access_key)
   end
   
-  def sync(page: 1)
+  def sync(page: 1, per_page: 200)
     loop do
-      response = client.get("/videos?page=#{page}")
-      response[:items].each { synchronize_video(_1) }
+      response = client.videos(page: page, per_page: per_page)
+      ApplicationRecord.transaction do
+        response[:items].each { synchronize_video(_1) }
+      end
       next_page = response[:currentPage] * response[:itemsPerPage] < response[:totalItems]
       break unless next_page
       page += 1

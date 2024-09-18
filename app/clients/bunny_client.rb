@@ -16,6 +16,10 @@ class BunnyClient
     http_request Net::HTTP::Post, "/library/#{@library_id}#{path}", body: body
   end
 
+  def videos(page: 1, per_page: 200)
+    get "/videos?itemsPerPage=#{per_page}&page=#{page}"
+  end
+
   private
 
   def http_request(method, path, body: nil)
