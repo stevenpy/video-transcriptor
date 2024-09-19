@@ -68,3 +68,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "solid_queue", "~> 0.9.0"
+gem "mission_control-jobs"
